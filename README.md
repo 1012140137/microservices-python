@@ -22,10 +22,13 @@ Python ❨3.8, 3.9, 3.10, 3.11❩
 ## How to start the development environment
 ``` bash shell
 $ mkdir -p runtime/logs
+
+# Prepare the basic python environment
 $ virtualenv -p python3 python3_env
 $ source python3_env/bin/activate
 $ pip install -r ./requirements.txt
 
+# Execute the following command lines in separate shell Windows
 $ make dev-up
 $ make flower-up
 $ make worker1-run
