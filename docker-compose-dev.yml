@@ -1,0 +1,35 @@
+#  Compose file version 3 reference: https://docs.docker.com/compose/compose-file/
+version: "3.5"
+
+services:
+  mongodb:
+    image: mongo:6.0
+    ports:
+      - "27017:27017"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=${MONGODB_USER}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGODB_PASSWORD}
+    volumes:
+      - ./init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js # init mongodb from init-mongo.js
+      - ./runtime/mongo_data:/data/db
+    privileged: true
+
+  rabbitmq:
+    image: rabbitmq:3.13.6-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      - RABBITMQ_DEFAULT_USER=${RABBITMQ_USER}
+      - RABBITMQ_DEFAULT_PASS=${RABBITMQ_PASSWORD}
+    volumes:
+      - ./runtime/rabbitmq_data:/var/lib/rabbitmq
+    privileged: true
+
+  redis:
+    image: redis:7.0
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./runtime/redis_data:/data
+    privileged: true
