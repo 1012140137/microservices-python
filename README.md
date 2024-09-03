@@ -35,4 +35,7 @@ $ make worker1-run
 $ make uvicorn-run
 ```
 
+## Open the swagger documentation and test APIs
+
+http://localhost:8080/swagger, the default access_token is "token1-xx"
 
