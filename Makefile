@@ -9,3 +9,6 @@ flower-up:
 
 uvicorn-run:
 	cd ./web && uvicorn main:app --port 8080  --reload
+
+prod-up:
+	docker-compose -f docker-compose-prod.yml --env-file ./prod.env up
