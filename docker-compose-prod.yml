@@ -4,6 +4,8 @@ version: "3.5"
 services:
   mongodb:
     image: mongo:6.0
+    ports:
+      - "27017:27017"
     environment:
       - MONGO_INITDB_ROOT_USERNAME=${MONGODB_USER}
       - MONGO_INITDB_ROOT_PASSWORD=${MONGODB_PASSWORD}
@@ -14,6 +16,8 @@ services:
 
   rabbitmq:
     image: rabbitmq:3.13.6-management
+    ports:
+      - "5672:5672"
     environment:
       - RABBITMQ_DEFAULT_USER=${RABBITMQ_USER}
       - RABBITMQ_DEFAULT_PASS=${RABBITMQ_PASSWORD}
@@ -27,22 +31,22 @@ services:
       - ./runtime/redis_data:/data
     privileged: true
 
-  celery_worker1:
-    image: msp/python:latest
-    command: [ "sh", "-c", "cd /vagrant && make worker1-run" ]
-    environment:
-      - RABBITMQ_HOST=rabbitmq
-      - RABBITMQ_USER=${RABBITMQ_USER}
-      - RABBITMQ_PASSWORD=${RABBITMQ_PASSWORD}
-      - MONGODB_HOST=mongodb
-      - MONGODB_USER=${MONGODB_USER}
-      - MONGODB_PASSWORD=${MONGODB_PASSWORD}
-    volumes:
-      - ./:/vagrant
-    depends_on:
-      - rabbitmq
-      - mongodb
-    privileged: true
+  # celery_worker1:
+  #   image: msp/python:latest
+  #   command: [ "sh", "-c", "cd /vagrant && make worker1-run" ]
+  #   environment:
+  #     - RABBITMQ_HOST=rabbitmq
+  #     - RABBITMQ_USER=${RABBITMQ_USER}
+  #     - RABBITMQ_PASSWORD=${RABBITMQ_PASSWORD}
+  #     - MONGODB_HOST=mongodb
+  #     - MONGODB_USER=${MONGODB_USER}
+  #     - MONGODB_PASSWORD=${MONGODB_PASSWORD}
+  #   volumes:
+  #     - ./:/vagrant
+  #   depends_on:
+  #     - rabbitmq
+  #     - mongodb
+  #   privileged: true
 
   flower:
     image: msp/python:latest

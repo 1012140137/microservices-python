@@ -43,4 +43,24 @@ $ mkdir -p runtime/logs
 $ docker/images/build_images.sh
 $ make prod-up
 ```
+
+Run the celery worker in anywhere, able to access rabbitmq and mongodb services on your private network is required
+``` bash shell
+$ mkdir -p runtime/logs
+
+# Prepare the basic python environment
+$ virtualenv -p python3 python3_env
+$ source python3_env/bin/activate
+$ pip install -r ./requirements.txt
+
+# Set environment vars, and run celery worker
+$ export RABBITMQ_HOST=localhost &&\
+  export RABBITMQ_USER=admin  &&\
+  export RABBITMQ_PASSWORD=secret  &&\
+  export MONGODB_HOST=localhost  &&\
+  export MONGODB_USER=admin  &&\
+  export MONGODB_PASSWORD=secret  &&\
+  make worker1-run
+```
+
 > http://localhost/uvicorn/swagger, the default access_token is "token1-xx"
