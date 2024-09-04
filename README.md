@@ -34,8 +34,13 @@ $ make flower-up
 $ make worker1-run
 $ make uvicorn-run
 ```
+> http://localhost:8080/swagger, the default access_token is "token1-xx"
 
-## Open the swagger documentation and test APIs
+## How to start the prod environment
+``` bash shell
+$ mkdir -p runtime/logs
 
-http://localhost:8080/swagger, the default access_token is "token1-xx"
-
+$ docker/images/build_images.sh
+$ make prod-up
+```
+> http://localhost/uvicorn/swagger, the default access_token is "token1-xx"
