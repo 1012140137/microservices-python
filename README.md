@@ -34,9 +34,16 @@ $ make flower-up
 $ make worker1-run
 $ make uvicorn-run
 ```
-> http://localhost:8080/swagger, the default access_token is "token1-xx"
+Open Swagger Documention
+
+http://localhost:8080/swagger, the default access_token is "token1-xx"
 
 ## How to start the prod environment
+(1) Enable https support (**Optional**)
+ - Edit the `docker/images/nginx/etc/nginx/conf.d/ssl.conf` file, replace with your ssl certificate
+ - Rename for replace the `docker/images/nginx/etc/nginx/conf.d/default.conf` with `docker/images/nginx/etc/nginx/conf.d/default.conf.bak`
+
+(2) Build your images, and startup the product environment
 ``` bash shell
 $ mkdir -p runtime/logs
 
@@ -44,7 +51,7 @@ $ docker/images/build_images.sh
 $ make prod-up
 ```
 
-Run the celery worker in anywhere, able to access rabbitmq and mongodb services on your private network is required
+(3) Run the celery worker in anywhere, able to access rabbitmq and mongodb services on your private network is required
 ``` bash shell
 $ mkdir -p runtime/logs
 
@@ -62,5 +69,6 @@ $ export RABBITMQ_HOST=localhost &&\
   export MONGODB_PASSWORD=secret  &&\
   make worker1-run
 ```
+（4）Open Swagger Documention
+> https://your_domain_name/uvicorn/swagger, the default access_token is "token1-xx"
 
-> http://localhost/uvicorn/swagger, the default access_token is "token1-xx"

@@ -162,3 +162,4 @@ cython_debug/
 #.idea/
 docker/volumes
 /runtime
+/docker/images/nginx/etc/nginx/ssl
